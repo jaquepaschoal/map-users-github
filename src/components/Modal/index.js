@@ -1,15 +1,20 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
 import { Container, Content, Cancel, Save } from "./style";
 
-const Modal = ({ cancel }) => (
+const Modal = ({ cancel, value, submit, change }) => (
   <Container>
     <Content>
       <h4>Adicionar novo usuário</h4>
-      <form action="post">
-        <input type="text" placeholder="Usuário do Github" />
+      <form onSubmit={submit}>
+        <input
+          type="text"
+          placeholder="Usuário do Github"
+          value={value}
+          onChange={change}
+        />
         <div>
           <Cancel onClick={cancel}>Cancelar</Cancel>
-          <Save>Salvar</Save>
+          <Save type="submit">Salvar</Save>
         </div>
       </form>
     </Content>

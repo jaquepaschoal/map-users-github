@@ -19,6 +19,10 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    main {
+      width: 158px;
+    }
+
     h4 {
       font-size: 16px;
       color: #333;
@@ -59,12 +63,8 @@ export const IconClose = styled.div`
     cursor: pointer;
     display: flex;
     justify-content: flex-end;
-    color: #d45454;
+    color: #d45454 !important;
     font-size: 18px;
     font-weight: 100;
-  }
-
-  i:hover {
-    color: #d45454 !important;
   }
 `;

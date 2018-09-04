@@ -1,22 +1,19 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
 import { Container, Icon, IconClose } from "./style";
 
-const User = () => (
+const User = ({ img, alt, name, user }) => (
   <div>
     <Container>
       <div>
-        <img
-          src="https://avatars2.githubusercontent.com/u/487669?v=4"
-          alt="alt"
-        />
+        <img src={img} alt={alt} />
       </div>
       <section>
         <main>
-          <h4>Fernando Daciuk</h4>
-          <small>ferdaciuk</small>
+          <h4>{name}</h4>
+          <small>{user}</small>
         </main>
         <IconClose>
-          <i class="fa fa-times-circle" />
+          <i className="fa fa-times-circle" />
         </IconClose>
         <Icon>
           <i className="fa fa-chevron-right" />
