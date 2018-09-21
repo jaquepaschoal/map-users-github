@@ -10,6 +10,7 @@ import { Creators as UserActions } from "../../store/ducks/users";
 import { Sidebar } from "./style";
 import User from "../../components/User";
 import Modal from "../../components/Modal";
+import Error from "../../components/Error";
 
 class Main extends Component {
   constructor() {
@@ -21,17 +22,22 @@ class Main extends Component {
     userInput: "",
     markers: [
       {
-        latitude: -23.5439948,
-        longitude: -46.6065452,
+        latitude: -46.5282,
+        longitude: -22.9356,
+        src: "https://avatars3.githubusercontent.com/u/28562703?v=4"
+      },
+      {
+        latitude: -23.5439,
+        longitude: -46.6065,
         src: "https://avatars3.githubusercontent.com/u/28562703?v=4"
       }
     ],
     viewport: {
       width: window.innerWidth,
       height: window.innerHeight,
-      latitude: -23.5439948,
-      longitude: -46.6065452,
-      zoom: 14
+      latitude: -46.5282,
+      longitude: -22.9356,
+      zoom: 8
     }
   };
 
@@ -57,16 +63,22 @@ class Main extends Component {
   handleUser = e => {
     e.preventDefault();
     this.props.addUserRequest(this.state.userInput);
+
     this.setState({
       userInput: "",
       showModal: false
     });
   };
 
+  removeUser = e => {
+    const id = e.target.id;
+    this.props.removeUser(Number(id));
+  };
+
   handleMapClick(e) {
     const [latitude, longitude] = e.lngLat;
 
-    // alert(`Latitude: ${latitude} \nLongitude: ${longitude}`);
+    // console.log(`Latitude: ${latitude} \nLongitude: ${longitude}`);
 
     this.setState({
       showModal: true,
@@ -84,6 +96,8 @@ class Main extends Component {
   render() {
     return (
       <div>
+        {this.props.users.error && <Error />}
+
         {this.state.showModal && (
           <Modal
             cancel={() => {
@@ -96,12 +110,15 @@ class Main extends Component {
               });
             }}
             submit={this.handleUser}
+            teste={this.props.users.error}
           />
         )}
         <Sidebar>
           {this.props.users.data.map(user => {
             return (
               <User
+                remove={this.removeUser}
+                id={user.id}
                 key={user.id}
                 img={user.image}
                 alt={user.username}
@@ -120,14 +137,12 @@ class Main extends Component {
           }
           onViewportChange={viewport => this.setState({ viewport })}
         >
-          {console.log(this.state.markers)}
           {this.state.markers.map(marker => {
             return (
               <Marker
                 key={marker.latitude}
                 latitude={marker.latitude}
                 longitude={marker.longitude}
-                onClick={this.handleMapClick}
                 captureClick={true}
               >
                 <img

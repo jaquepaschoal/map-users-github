@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Icon, IconClose } from "./style";
 
-const User = ({ img, alt, name, user }) => (
+const User = ({ id, img, alt, name, user, remove }) => (
   <div>
     <Container>
       <div>
@@ -12,8 +12,8 @@ const User = ({ img, alt, name, user }) => (
           <h4>{name}</h4>
           <small>{user}</small>
         </main>
-        <IconClose>
-          <i className="fa fa-times-circle" />
+        <IconClose onClick={remove}>
+          <i className="fa fa-times-circle" id={id} />
         </IconClose>
         <Icon>
           <i className="fa fa-chevron-right" />
